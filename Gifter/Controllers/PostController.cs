@@ -26,6 +26,17 @@ namespace Gifter.Controllers
             var posts = _postRepository.GetAllWithComments();
             return Ok(posts);
         }
+        [HttpGet("search")]
+        public IActionResult Search(string q, bool sortDesc)
+        {
+            return Ok(_postRepository.Search(q, sortDesc));
+        }
+
+        [HttpGet("searchHottest")]
+        public IActionResult SearchHottest(string q, bool sortDesc)
+        {
+            return Ok(_postRepository.SearchHottest(q, sortDesc));
+        }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
