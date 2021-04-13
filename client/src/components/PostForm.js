@@ -13,15 +13,12 @@ export const PostForm = () => {
         title: "", 
         imageUrl: "", 
         caption: "", 
+        dateCreated: new Date(),
         userProfileId : 1, 
 
     });
 
-    useEffect(() => {
-        getAllPosts();
-    }, [])// eslint-disable-line react-hooks/exhaustive-deps
-
-    const handleControlledInputChangePost = ( event) => {
+    const handleControlledInputChangePost = (event) => {
         const newPost = { ...post };
 
         newPost[event.target.id] = event.target.value;
@@ -33,8 +30,10 @@ export const PostForm = () => {
             title : post.title, 
             imageUrl : post.imageUrl, 
             caption : post.caption,
+            dateCreated:new Date(),
             userProfileId : 1
         })
+        .then(getAllPosts);
             
     };
     return (
@@ -57,6 +56,22 @@ export const PostForm = () => {
                 </div>
             </fieldset>
             <fieldset>
+                <div className="form-group">
+                <label htmlFor="url">Post url:  </label>
+            <input
+               autoComplete="off"
+              type="text"
+              id="imageUrl"
+              onChange={handleControlledInputChangePost}
+              required
+              autoFocus
+              className="form-control"
+              placeholder="Post url"
+              value={post.imageUrl}
+            />
+                </div>
+            </fieldset>
+            <fieldset>
           <div className="form-group">
             <label htmlFor="caption">Caption: </label>
             <input
@@ -74,9 +89,7 @@ export const PostForm = () => {
          event.preventDefault();
          handleSavePost()
          
-        }}> Save Recipe
-          
-        </div>
+        }}> Save Post </div>
 
         </div>
     )
