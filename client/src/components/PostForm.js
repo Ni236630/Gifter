@@ -1,14 +1,19 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import { PostContext } from "../providers/PostProvider";
-
+import { useHistory } from "react-router-dom";
+import {
+    Form,
+    FormGroup,
+    Card,
+    CardBody,
+    Label,
+    Input,
+    Button,
+  } from "reactstrap";
 
 
 export const PostForm = () => {
-    const {addPost, getAllPosts } = useContext(PostContext);
-
-    //add UserProfileContext eventually;
-
-
+    const {addPost} = useContext(PostContext);
     const [post, setPost] = useState({
         title: "", 
         imageUrl: "", 
@@ -17,6 +22,8 @@ export const PostForm = () => {
         userProfileId : 1, 
 
     });
+
+    const history = useHistory();
 
     const handleControlledInputChangePost = (event) => {
         const newPost = { ...post };
@@ -33,13 +40,17 @@ export const PostForm = () => {
             dateCreated:new Date(),
             userProfileId : 1
         })
-        .then(getAllPosts);
+        .then((p) => {
+            history.push("/");
+        });
             
     };
     return (
         <div className="post__form container">
+            <CardBody>
+            <Form>
             <h2 className="post__form--title">New Post</h2>
-            <fieldset>
+            <FormGroup>
                 <div className="form-group">
                 <label htmlFor="name">Post Title:  </label>
             <input
@@ -54,10 +65,10 @@ export const PostForm = () => {
               value={post.title}
             />
                 </div>
-            </fieldset>
-            <fieldset>
+            </FormGroup>
+            <FormGroup>
                 <div className="form-group">
-                <label htmlFor="url">Post url:  </label>
+                <label htmlFor="url">Gif url:  </label>
             <input
                autoComplete="off"
               type="text"
@@ -70,8 +81,8 @@ export const PostForm = () => {
               value={post.imageUrl}
             />
                 </div>
-            </fieldset>
-            <fieldset>
+            </FormGroup>
+            <FormGroup>
           <div className="form-group">
             <label htmlFor="caption">Caption: </label>
             <input
@@ -84,13 +95,14 @@ export const PostForm = () => {
               value={post.caption}
             />
           </div>
-        </fieldset>
-        <div className="savePost btn btn-primary" onClick={(event) => {
+        </FormGroup>
+        </Form>
+        <Button className="savePost " color="info" onClick={(event) => {
          event.preventDefault();
          handleSavePost()
          
-        }}> Save Post </div>
-
+        }}> Save Post </Button>
+        </CardBody>
         </div>
     )
 };
