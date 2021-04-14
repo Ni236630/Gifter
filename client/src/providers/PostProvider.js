@@ -1,41 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useContext, createContext } from "react";
+import { UserProfileContext } from './UserProfileProvider';
 
-export const PostContext = React.createContext();
+export const PostContext = createContext();
 
 export const PostProvider = (props) => {
+  const apiUrl = "/api/posts";
+  const { getToken } = useContext(UserProfileContext);
+
   const [posts, setPosts] = useState([]);
   const [dateSort, setDateSort] = useState([]);
 
   const getAllPosts = () => {
-    return fetch("/api/post")
-      .then((res) => res.json())
-      .then(setPosts);
+   return  getToken().then((token) => 
+      fetch(apiUrl, {
+        method: "GET", 
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res => res.json())
+      .then(setPosts));
   };
 
   const addPost = (post) => {
-    return fetch("/api/post", {
+    return getToken().then((token) => fetch("/api/post", {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(post),
-    })
+    }))
     ;
   };
 
   const searchPost = (searchTerm) =>{
-      return fetch(`/api/Post/search?q=${searchTerm}&sortDesc=false`)
+      return getToken().then((token) => 
+        fetch(`/api/Post/search?q=${searchTerm}&sortDesc=false`)
         .then((res) => res.json())
-        .then(setPosts);
+        .then(setPosts));
   }
 
   const searchByDate = (date) => {
-    return fetch(`/api/Post/searchHottest?q=${date}&sortDesc=false`)
+    return getToken().then((token) => fetch(`/api/Post/searchHottest?q=${date}&sortDesc=false`)
     .then((res) => res.json())
-    .then(setDateSort);
+    .then(setDateSort));
   }
   const getPost = (id) => {
-    return fetch(`/api/post/${id}`).then((res) => res.json());
+    return getToken().then((token) => fetch(`/api/post/${id}`).then((res) => res.json()));
 };
 
   return (
