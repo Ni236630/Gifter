@@ -4,14 +4,14 @@ import { UserProfileContext } from './UserProfileProvider';
 export const PostContext = createContext();
 
 export const PostProvider = (props) => {
-  const apiUrl = "/api/posts";
+  const apiUrl = "/api/post";
   const { getToken } = useContext(UserProfileContext);
 
   const [posts, setPosts] = useState([]);
   const [dateSort, setDateSort] = useState([]);
 
-  const getAllPosts = () => {
-   return  getToken().then((token) => 
+  const getAllPosts = () => 
+  getToken().then((token) => 
       fetch(apiUrl, {
         method: "GET", 
         headers: {
@@ -19,7 +19,7 @@ export const PostProvider = (props) => {
         }
       }).then(res => res.json())
       .then(setPosts));
-  };
+  
 
   const addPost = (post) => {
     return getToken().then((token) => fetch("/api/post", {

@@ -198,7 +198,7 @@ namespace Gifter.Repositories
 
                     DbUtils.AddParameter(cmd, "@name", user.Name);
                     DbUtils.AddParameter(cmd, "@email", user.Email);
-                    DbUtils.AddParameter(cmd, "@dateCreated", user.DateCreated);
+                    DbUtils.AddParameter(cmd, "@dateCreated", DateTime.Now);
                     DbUtils.AddParameter(cmd, "@imageUrl", user.ImageUrl);
                     DbUtils.AddParameter(cmd, "@fireBaseUserId", user.FirebaseUserId);
 
