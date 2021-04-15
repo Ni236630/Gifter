@@ -20,6 +20,7 @@ const PostList = () => {
     } else  {
          getAllPosts();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, dateSort])
 
   const handleControlledInputChangePost = (event) => {
@@ -36,8 +37,10 @@ const PostList = () => {
 
   return (
       <>
-      <div className="Post__Search--Date container">
-    <h2>Search...</h2>
+      <div className ="container row ">
+
+      <div className="Post__Search--Date col-md-6 ">
+    <h2>Search By Date</h2>
     <fieldset>
     <div className="form-group">
     <label htmlFor="search">Search By Date: </label>
@@ -49,21 +52,21 @@ const PostList = () => {
       className="form-control"
       placeholder="YYYYMMDD"
       value={date}
-    />
+      />
     </div>
     <div className="savePost btn btn-primary" onClick={(event) => {
- event.preventDefault();
- searchByDate(date);
- 
-}}> Search 
+      event.preventDefault();
+      searchByDate(date);
+      
+    }}> Search 
 </div>
     </fieldset>
     </div>
-      <div className="Post__Search container">
+      <div className="Post__Search col-md-6">
     <h2>Search...</h2>
     <fieldset>
     <div className="form-group">
-    <label htmlFor="search">Search: </label>
+    <label htmlFor="search">Search By Title </label>
     <input
       type="text"
       id="caption"
@@ -72,10 +75,11 @@ const PostList = () => {
       className="form-control"
       placeholder="Search..."
       value={searchTerm}
-    />
+      />
     </div>
     </fieldset>
 
+      </div>
 </div>
 <div className="container">
   <div className="row justify-content-center">

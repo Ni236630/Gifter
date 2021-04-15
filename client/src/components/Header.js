@@ -23,7 +23,7 @@ export const Header = () => {
         </li>
         {isLoggedIn ? 
         <li className="nav-item">
-          <Link className="nav-link" onClick={()=>logout()}>Log Out</Link>
+          <Link to="/Login"className="nav-link" onClick={()=>logout()}>Log Out</Link>
         </li> : <div></div>
         }
       </ul>

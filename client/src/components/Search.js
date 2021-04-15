@@ -18,7 +18,7 @@ export const SearchPosts = () => {
 
     return (
         <div className="Post__Search container">
-    <h2>Search...</h2>
+    <h2>Search By Title</h2>
     <fieldset>
     <div className="form-group">
     <label htmlFor="search">Search: </label>
