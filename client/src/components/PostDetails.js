@@ -10,7 +10,7 @@ const PostDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    getPost(id).then(setPost);
+    getPost(id).then(setPost); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!post) {

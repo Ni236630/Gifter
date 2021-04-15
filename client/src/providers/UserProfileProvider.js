@@ -9,7 +9,7 @@ export const UserProfileContext = createContext();
 
 export const UserProfileProvider = (props) => {
 
-    const apiUrl = "api/userprofile";
+    const apiUrl = "/api/UserProfile";
 
 
 
@@ -55,7 +55,7 @@ export const UserProfileProvider = (props) => {
 
     const getUserProfile = (firebaseUserId) => {
         return getToken().then((token) =>
-            fetch(`${apiUrl}/${firebaseUserId}`,{
+            fetch(`/api/UserProfile/${firebaseUserId}`,{
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -66,7 +66,7 @@ export const UserProfileProvider = (props) => {
 
     const saveUser = (userProfile) => {
         return getToken().then((token) => 
-            fetch( apiUrl, {
+            fetch(apiUrl, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,

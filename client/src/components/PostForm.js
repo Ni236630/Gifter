@@ -47,6 +47,7 @@ export const PostForm = () => {
     };
     return (
         <div className="post__form container">
+            <Card>
             <CardBody>
             <Form>
             <h2 className="post__form--title">New Post</h2>
@@ -103,6 +104,7 @@ export const PostForm = () => {
          
         }}> Save Post </Button>
         </CardBody>
+        </Card>
         </div>
     )
 };

@@ -16,7 +16,7 @@ namespace Gifter.Controllers
         {
             _userProfileRepository = userProfileRepository;
         }
-        [HttpGet("{firebaseUserId}")]
+        [HttpGet("UserProfile/{firebaseUserId}")]
         public IActionResult GetByFirebaseUserId(string firebaseUserId)
         {
             var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);

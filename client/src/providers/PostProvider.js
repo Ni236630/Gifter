@@ -4,7 +4,7 @@ import { UserProfileContext } from './UserProfileProvider';
 export const PostContext = createContext();
 
 export const PostProvider = (props) => {
-  const apiUrl = "/api/post";
+  const apiUrl = "/api/Post";
   const { getToken } = useContext(UserProfileContext);
 
   const [posts, setPosts] = useState([]);
@@ -21,32 +21,46 @@ export const PostProvider = (props) => {
       .then(setPosts));
   
 
-  const addPost = (post) => {
-    return getToken().then((token) => fetch("/api/post", {
+      const searchPost = (searchTerm) =>
+         getToken().then((token) => 
+            fetch(`/api/Post/search?q=${searchTerm}&sortDesc=false`,{
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            })
+            .then((res) => res.json())
+            .then(setPosts));
+      
+  const addPost = (post) => 
+    getToken().then((token) => fetch("/api/Post", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(post),
-    }))
-    ;
-  };
+    }));
+  
 
-  const searchPost = (searchTerm) =>{
-      return getToken().then((token) => 
-        fetch(`/api/Post/search?q=${searchTerm}&sortDesc=false`)
-        .then((res) => res.json())
-        .then(setPosts));
-  }
 
   const searchByDate = (date) => {
-    return getToken().then((token) => fetch(`/api/Post/searchHottest?q=${date}&sortDesc=false`)
+    return getToken().then((token) => fetch(`/api/Post/searchHottest?q=${date}&sortDesc=false`,{
+      method:"GET",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     .then((res) => res.json())
     .then(setDateSort));
   }
   const getPost = (id) => {
-    return getToken().then((token) => fetch(`/api/post/${id}`).then((res) => res.json()));
+    return getToken().then((token) => fetch(`/api/Post/${id}`,{
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((res) => res.json()));
 };
 
   return (
